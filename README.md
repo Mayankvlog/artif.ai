@@ -52,7 +52,7 @@ ArtifAI is a web application that allows users to generate, manage, and explore 
 
 4. Run the application:
    ```
-   python run_app.py
+   python app.py
    ```
    
 5. Access the application at `http://localhost:5000`
