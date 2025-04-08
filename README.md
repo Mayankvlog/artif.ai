@@ -69,7 +69,7 @@ If you don't have MySQL installed, you can use SQLite for testing:
    
 2. Run the application:
    ```
-   python run_app.py
+   python app.py
    ```
    
    The application will create a SQLite database file named `artifai.db` in the project directory.
