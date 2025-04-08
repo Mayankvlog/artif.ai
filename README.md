@@ -122,4 +122,4 @@ If you don't have MySQL installed, you can use SQLite for testing:
 
 ## Credits
 
-Created by [Your Name]
+Created by [Mayank]
