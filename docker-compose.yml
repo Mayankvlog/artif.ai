@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=artifai_user
+      - MYSQL_PASSWORD=artifai_password
+      - MYSQL_DATABASE=artifai
+      - DATABASE_URL=mysql+pymysql://artifai_user:artifai_password@db/artifai
+      - SESSION_SECRET=${SESSION_SECRET:-change_this_in_production}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=artifai
+      - MYSQL_USER=artifai_user
+      - MYSQL_PASSWORD=artifai_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+
+volumes:
+  mysql_data:
