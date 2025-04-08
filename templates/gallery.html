@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Gallery - ArtifAI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Your Image Gallery</h1>
+        <a href="{{ url_for('generator') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Create New
+        </a>
+    </div>
+    
+    <!-- Gallery Container -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4" id="gallery-container">
+        <!-- Images will be loaded here via JavaScript -->
+    </div>
+    
+    <!-- No Images Message (Initially Hidden) -->
+    <div id="no-images-message" class="text-center py-5 d-none">
+        <div class="mb-4">
+            <i class="fas fa-images fa-4x text-muted"></i>
+        </div>
+        <h3 class="mb-3">Your gallery is empty</h3>
+        <p class="mb-4">Start creating amazing AI-generated images now!</p>
+        <a href="{{ url_for('generator') }}" class="btn btn-primary btn-lg">
+            Create Your First Image
+        </a>
+    </div>
+    
+    <!-- Loading Spinner -->
+    <div id="gallery-loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading your images...</p>
+    </div>
+    
+    <!-- Load More Button (Initially Hidden) -->
+    <div class="text-center mt-5">
+        <button id="load-more" class="btn btn-outline-light d-none">
+            Load More
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+{% endblock %}

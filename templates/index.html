@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}ArtifAI - AI-Powered Image Generation{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero-section text-center py-5 px-3 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">Create Stunning Images with AI</h1>
+                <p class="lead mb-4">Turn your imagination into reality with ArtifAI advanced AI technology</p>
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('generator') }}" class="btn btn-primary btn-lg px-5 py-3">Start Creating</a>
+                {% else %}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg px-4 me-md-2">Create Account</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-4">Login</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="row g-4 py-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 bg-dark">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-paint-brush fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="card-title">Multiple Styles</h3>
+                    <p class="card-text">Choose from various art styles including abstract, realistic, anime, painterly, 3D, and minimalist.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 bg-dark">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-image fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="card-title">Various Formats</h3>
+                    <p class="card-text">Select from different aspect ratios to create the perfect image for your needs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 bg-dark">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-cloud-upload-alt fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="card-title">Save & Organize</h3>
+                    <p class="card-text">Your generated images are automatically saved to your personal gallery for easy access.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sample Images Section -->
+    <h2 class="text-center mt-5 mb-4">Examples of What You Can Create</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        {% for sample in samples %}
+        <div class="col">
+            <div class="card h-100 image-card">
+                <img src="{{ sample.url }}" class="card-img-top" alt="{{ sample.prompt }}">
+                <div class="card-body">
+                    <p class="card-text prompt-text">{{ sample.prompt }}</p>
+                    <span class="badge bg-primary">{{ sample.style }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="text-center my-5 py-4">
+        <h2 class="mb-4">Ready to create your own masterpieces?</h2>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('generator') }}" class="btn btn-primary btn-lg">Start Creating Now</a>
+        {% else %}
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Sign Up for Free</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

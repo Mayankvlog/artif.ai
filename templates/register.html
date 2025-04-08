@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - ArtifAI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Create an Account</h2>
+                    
+                    <form method="post" action="{{ url_for('register') }}" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" minlength="6" required>
+                            <div class="invalid-feedback">
+                                Password must be at least 6 characters.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm_password" required>
+                            <div class="invalid-feedback">
+                                Passwords do not match.
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
+        
+        form.addEventListener('submit', function(event) {
+            // Check if passwords match
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords do not match");
+            } else {
+                confirmPassword.setCustomValidity("");
+            }
+            
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        }, false);
+        
+        // Clear custom validity when the user types
+        confirmPassword.addEventListener('input', function() {
+            if (password.value === confirmPassword.value) {
+                confirmPassword.setCustomValidity("");
+            } else {
+                confirmPassword.setCustomValidity("Passwords do not match");
+            }
+        });
+    });
+</script>
+{% endblock %}

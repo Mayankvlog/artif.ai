@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Create with AI - ArtifAI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <h1 class="text-center mb-4">Create Your Image</h1>
+            
+            <!-- Generator Form -->
+            <div class="card shadow-sm bg-dark">
+                <div class="card-body p-4">
+                    <form id="generator-form" class="needs-validation" novalidate>
+                        <!-- Prompt Input -->
+                        <div class="mb-4">
+                            <label for="prompt" class="form-label">Describe what you want to create</label>
+                            <textarea class="form-control" id="prompt" rows="3" placeholder="E.g., A futuristic city with flying cars and neon lights" required></textarea>
+                            <div class="invalid-feedback">
+                                Please enter a description for your image.
+                            </div>
+                        </div>
+                        
+                        <!-- Style Selection -->
+                        <div class="mb-4">
+                            <label class="form-label">Choose a Style</label>
+                            <input type="hidden" id="style" name="style" value="default">
+                            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+                                <div class="col">
+                                    <div class="card style-option selected" data-style="default">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-star mb-2"></i>
+                                            <p class="card-text">Default</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card style-option" data-style="abstract">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-bezier-curve mb-2"></i>
+                                            <p class="card-text">Abstract</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card style-option" data-style="realistic">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-camera mb-2"></i>
+                                            <p class="card-text">Realistic</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card style-option" data-style="anime">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-smile mb-2"></i>
+                                            <p class="card-text">Anime</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card style-option" data-style="painterly">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-palette mb-2"></i>
+                                            <p class="card-text">Painterly</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card style-option" data-style="3d">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-cube mb-2"></i>
+                                            <p class="card-text">3D</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card style-option" data-style="minimalist">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-minus mb-2"></i>
+                                            <p class="card-text">Minimalist</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Aspect Ratio Selection -->
+                        <div class="mb-4">
+                            <label class="form-label">Aspect Ratio</label>
+                            <input type="hidden" id="aspect-ratio" name="aspect-ratio" value="1:1">
+                            <div class="btn-group w-100">
+                                <button type="button" class="btn btn-outline-light aspect-ratio-option selected" data-ratio="1:1">Square (1:1)</button>
+                                <button type="button" class="btn btn-outline-light aspect-ratio-option" data-ratio="16:9">Landscape (16:9)</button>
+                                <button type="button" class="btn btn-outline-light aspect-ratio-option" data-ratio="9:16">Portrait (9:16)</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Generate Button -->
+                        <div class="d-grid">
+                            <button type="submit" id="generate-btn" class="btn btn-primary btn-lg btn-generate">Generate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Result Section (Initially Hidden) -->
+            <div id="image-result-section" class="mt-5 d-none">
+                <h2 class="mb-4 text-center">Your Generated Image</h2>
+                <div class="card">
+                    <img id="generated-image" class="card-img-top" alt="Generated image">
+                    <div class="card-body">
+                        <h5 class="card-title">Image Details</h5>
+                        <div class="mb-2">
+                            <strong>Prompt:</strong> <span id="generated-prompt"></span>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Style:</strong> <span id="generated-style"></span>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Created:</strong> <span id="generated-time"></span>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <a href="{{ url_for('gallery') }}" class="btn btn-outline-primary">View in Gallery</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% endblock %}
